@@ -33,6 +33,10 @@ class Residue(object):
         cmd.show('sticks', tgt)
         cmd.show('spheres', tgt)
 
+        cmd.select('rz-target', sele)
+        cmd.select('rz-around', 'byres {} around {}'.format(sele, near))
+        cmd.deselect()
+
         cmd.show('(byres {} around {}) and ! name c+n+o+h'.format(sele, near))
         cmd.show('////HOH')
 
@@ -151,10 +155,10 @@ class ResidueZoomerGUI(Tkinter.Toplevel):
         for i, res in enumerate(residues):
             self.listbox.insert(i, res)
 
-
-def residue_zoomer(sele = '(all)'):
-    root = plugins.get_tk_root()
-    rz   = ResidueZoomerGUI(root)
-
 def __init_plugin__(self = None):
+    root = plugins.get_tk_root()
+
+    def residue_zoomer():
+        ResidueZoomerGUI(root)
+
     plugins.addmenuitem('residue zoomer', residue_zoomer)
