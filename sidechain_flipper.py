@@ -5,7 +5,7 @@ class Residue(object):
         self.model = model
         try:
             self.segi = int(segi)
-        except:
+        except ValueError:
             self.segi = None
         self.chain = chain
         self.resi = int(resi)

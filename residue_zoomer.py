@@ -6,7 +6,7 @@ class Residue(object):
         self.model = model
         try:
             self.segi  = int(segi)
-        except:
+        except ValueError:
             self.segi  = None
         self.chain = chain
         self.resi  = int(resi)
@@ -86,7 +86,7 @@ class ResidueZoomerGUI(Tkinter.Toplevel):
     def __init__(self, master = None):
         Tkinter.Toplevel.__init__(self, master)
 
-        self.resizable(height = False, width = False)
+        self.resizable(height = True, width = False)
 
         self.title('residue zoomer')
 
@@ -94,10 +94,7 @@ class ResidueZoomerGUI(Tkinter.Toplevel):
         fr.pack(fill = Tkinter.X)
 
         def update(event):
-            try:
-                self.set_selector(sele.get())
-            except:
-                pass
+            self.set_selector(sele.get())
 
         count = Tkinter.StringVar()
         sele = Tkinter.Entry(fr)
