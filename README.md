@@ -3,11 +3,14 @@ my pymol plugins
 
 plugins
 --
-* residue_zoomer.py https://raw.githubusercontent.com/philopon/my-pymol-plugins/master/residue_zoomer.py
+* residue\_zoomer.py https://raw.githubusercontent.com/philopon/my-pymol-plugins/master/residue_zoomer.py
     zoom acidic/basic/flippable residue and its around
 
-* sidechain_flipper.py https://raw.githubusercontent.com/philopon/my-pymol-plugins/master/sidechain_flipper.py
+* sidechain\_flipper.py https://raw.githubusercontent.com/philopon/my-pymol-plugins/master/sidechain_flipper.py
     flip sidechain
+
+* image.py https://raw.githubusercontent.com/philopon/my-pymol-plugins/master/image.py
+    save image to desktop
 
 install
 --
