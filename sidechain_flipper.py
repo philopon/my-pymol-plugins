@@ -1,6 +1,6 @@
-from pymol import cmd
-
 class Residue(object):
+    __slots__ = ('model', 'segi', 'chain', 'resi', 'resn')
+
     def __init__(self, model, segi, chain, resi, resn):
         self.model = model
         try:
@@ -12,15 +12,21 @@ class Residue(object):
         self.resn = resn
 
     def flip_by_atoms(self, atmA, atmB, atmC, atmD):
+        from pymol import CmdException, cmd
         sele = self.selector()
 
         a, b, c, d = map(lambda a: '{}/{}'.format(sele, a),
                 [atmA, atmB, atmC, atmD])
 
-        dh = cmd.get_dihedral(a, b, c, d)
-        cmd.edit_mode(1)
-        cmd.set_dihedral(a, b, c, d, dh + 180)
-        cmd.edit_mode(0)
+        try:
+            dh = cmd.get_dihedral(a, b, c, d)
+        except CmdException:
+            print "Error on '{}'.".format(self.selector())
+            pass
+        else:
+            cmd.edit_mode(1)
+            cmd.set_dihedral(a, b, c, d, dh + 180)
+            cmd.edit_mode(0)
 
     def flip(self):
         if self.resn == 'GLN' or self.resn == 'GLU':
@@ -35,6 +41,8 @@ class Residue(object):
                 self.model, self.segi or '', self.chain, self.resi, self.resn)
 
 def flip_sidechain(sele = '(all)'):
+    from pymol import cmd
+
     curi     = [0]
     residues = []
 
@@ -52,4 +60,6 @@ def flip_sidechain(sele = '(all)'):
         res.flip()
 
 def __init_plugin__(self = None):
+    from pymol import cmd
+
     cmd.extend('flip', flip_sidechain)
