@@ -1,6 +1,6 @@
-from pymol import cmd, plugins
-
 class Residue(object):
+    __slots__ = ('model', 'segi', 'chain', 'resi', 'resn')
+
     def __init__(self, model, segi, chain, resi, resn):
 
         self.model = model
@@ -23,6 +23,8 @@ class Residue(object):
         return "{}({})".format(self.selector(), self.resn)
 
     def zoom_around(self, near = 5, zoom = 4):
+        from pymol import cmd
+
         cmd.hide()
         sele = self.selector()
 
@@ -45,6 +47,8 @@ class Residue(object):
         cmd.zoom(sele, zoom)
 
 class ResidueZoomer(object):
+    __slots__ = ('target', 'residues')
+
     residue_names = set([
         'ALA', 'ARG', 'ASN', 'ASP', 'CYS',
         'GLN', 'GLU', 'GLY', 'HIS', 'ILE',
@@ -57,6 +61,8 @@ class ResidueZoomer(object):
         'HIS', 'ASN', 'GLN',
         'ASP', 'GLU',
         'LYS', 'ARG'])):
+
+        from pymol import cmd
 
         self.target = target
 
@@ -83,6 +89,8 @@ class ResidueZoomer(object):
 import Tkinter
 
 class ResidueZoomerGUI(Tkinter.Toplevel):
+    __slots__ = ('count', 'listbox', 'residues')
+
     def __init__(self, master = None):
         Tkinter.Toplevel.__init__(self, master)
 
@@ -153,6 +161,8 @@ class ResidueZoomerGUI(Tkinter.Toplevel):
             self.listbox.insert(i, res)
 
 def __init_plugin__(self = None):
+    from pymol import plugins
+
     root = plugins.get_tk_root()
 
     def residue_zoomer():
