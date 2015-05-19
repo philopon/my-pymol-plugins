@@ -24,9 +24,8 @@ class Residue(object):
             print "Error on '{}'.".format(self.selector())
             pass
         else:
-            cmd.edit_mode(1)
             cmd.set_dihedral(a, b, c, d, dh + 180)
-            cmd.edit_mode(0)
+            cmd.unpick()
 
     def flip(self):
         if self.resn == 'GLN' or self.resn == 'GLU':
